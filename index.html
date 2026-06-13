@@ -267,11 +267,12 @@ const ACCENT = [
 const AVOID = [
   { hex: '#FFFFFF', name: 'White' },
   { hex: '#F7EDE8', name: 'Ivory' },
+  { hex: '#E8DCC4', name: 'Beige / Cream' },
   { hex: '#F6D8DE', name: 'Pale Blush' },
   { hex: '#1B1B1B', name: 'All Black' },
   { hex: '#E6FF12', name: 'Neon' },
 ];
-const AVOID_TEXT = 'White, ivory & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
+const AVOID_TEXT = 'White, ivory, beige/cream & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
 
 const $ = s => document.querySelector(s);
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
@@ -339,7 +340,7 @@ $('#attire').innerHTML = `
     <div class="attire-card">
       <div class="who">For him</div>
       <ul>
-        <li>A soft neutral suit — light grey, tan/beige, or a muted navy.</li>
+        <li>A soft neutral suit — light or charcoal grey, or a muted navy.</li>
         <li>Tie the palette in with the details: a lavender, sage, or dusty-rose tie, shirt, or pocket square.</li>
         <li>A pastel-toned shirt under a neutral jacket is an easy, polished look.</li>
         <li>Solid or subtle patterns only — no florals; and skip stark white suits and all-black.</li>
@@ -370,7 +371,7 @@ $('#download').onclick=()=>{
   section(x,'FUN ACCENT','#a08534',ACCENT,lx,y); y+=120;
   x.fillStyle='#b06b6b'; x.font='bold 14px sans-serif'; x.fillText('PLEASE AVOID', lx, y);
   x.fillStyle='#6b5b54'; x.font='14px sans-serif';
-  wrapText(x,'White, ivory & palest blush · all-black · bright neons', lx, y+26, w-lx-60, 22);
+  wrapText(x,'White, ivory, beige/cream & palest blush · all-black · bright neons', lx, y+26, w-lx-60, 22);
   x.fillStyle='#9a8c84'; x.font='italic 14px Georgia';
   x.fillText('Just a friendly suggestion — wear whatever makes you happy.', lx, y+72);
 
