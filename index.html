@@ -227,8 +227,8 @@
     <div class="card" id="card">
       <div class="palette-side">
         <div class="palette-head">
-          <h2>The Wedding Palette</h2>
-          <div class="sub">Colors inspired by the celebration</div>
+          <h2>Colors to Wear</h2>
+          <div class="sub">The palette for guests</div>
         </div>
         <div class="vbars" id="swatches"></div>
       </div>
@@ -284,7 +284,17 @@ function textOn(hex){
   const lum=(0.299*r+0.587*g+0.114*b)/255;
   return lum>0.6 ? '#3a3330' : '#ffffff';
 }
-DRESS.forEach((c,i)=>{
+// top palette = the colors guests can actually wear (best + accent)
+const TOP = [
+  { hex: '#D98FA0', name: 'Dusty Rose' },
+  { hex: '#C9A8D4', name: 'Lavender' },
+  { hex: '#9DA8D6', name: 'Periwinkle' },
+  { hex: '#A9BE97', name: 'Sage Green' },
+  { hex: '#B98FB0', name: 'Mauve' },
+  { hex: '#F3E1A0', name: 'Butter Yellow' },
+  { hex: '#B9DEC9', name: 'Mint' },
+];
+TOP.forEach((c,i)=>{
   const ink=textOn(c.hex);
   const el=document.createElement('div'); el.className='vbar';
   el.style.background=c.hex; el.style.color=ink;
