@@ -21,24 +21,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: var(--serif);
-    background: #bfe4f1;
+    background: linear-gradient(180deg, #d4ecf7 0%, #7fb6d6 38%, #2f7fab 70%, #14506f 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
   }
-  /* Lovers Point coastal scene */
-  .scene { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
-  .scene svg { width: 100%; height: 100%; display: block; }
-  .scene::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(251,246,242,0) 55%, rgba(251,246,242,.45) 100%);
-  }
-  .gull { animation: drift 9s ease-in-out infinite; transform-origin: center; }
-  .gull2 { animation: drift 11s ease-in-out infinite; }
-  .boat { animation: bob 6s ease-in-out infinite; transform-origin: center; }
-  @keyframes drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(28px,-12px); } }
-  @keyframes bob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(4px) rotate(-1.2deg); } }
-  @media (prefers-reduced-motion: reduce){ .gull,.gull2,.boat { animation: none; } }
   .hero {
     text-align: center; padding: 72px 20px 44px;
     background: radial-gradient(120% 92% at 50% 0%, rgba(255,255,255,.62) 0%, rgba(255,255,255,0) 72%);
@@ -165,7 +154,7 @@
   .btn-primary { background: #c98a96; color: #fff; }
   .btn-ghost { background: #f1e7e2; color: var(--ink); }
 
-  footer { text-align: center; font-family: var(--sans); font-size: 12px; color: var(--muted); padding: 0 20px 50px; letter-spacing: .04em; }
+  footer { text-align: center; font-family: var(--sans); font-size: 12px; color: rgba(255,255,255,.85); padding: 0 20px 50px; letter-spacing: .04em; }
 
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -179,78 +168,6 @@
 </style>
 </head>
 <body>
-  <div class="scene" aria-hidden="true">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#a9dcef"/><stop offset="1" stop-color="#e3f4fb"/>
-        </linearGradient>
-        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#3aa9d6"/><stop offset="0.5" stop-color="#2389ba"/><stop offset="1" stop-color="#176a96"/>
-        </linearGradient>
-        <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#f3e8d2"/><stop offset="1" stop-color="#e7d4b3"/>
-        </linearGradient>
-      </defs>
-
-      <!-- sky -->
-      <rect width="1440" height="470" fill="url(#sky)"/>
-      <circle cx="1140" cy="150" r="120" fill="#fff" opacity="0.18"/>
-
-      <!-- far hills -->
-      <path d="M0,372 C190,344 360,360 540,350 C760,338 980,360 1180,344 C1300,336 1440,350 1440,350 L1440,470 L0,470 Z" fill="#9cc7da" opacity="0.55"/>
-      <path d="M0,398 C240,378 420,392 640,384 C880,376 1080,396 1300,382 C1370,378 1440,388 1440,388 L1440,470 L0,470 Z" fill="#86b8cf" opacity="0.55"/>
-
-      <!-- ocean -->
-      <rect y="430" width="1440" height="380" fill="url(#sea)"/>
-      <!-- wave shimmer bands -->
-      <path d="M0,500 C300,486 600,512 900,498 C1140,487 1320,508 1440,500 L1440,520 C1320,528 1140,508 900,520 C600,534 300,508 0,522 Z" fill="#ffffff" opacity="0.10"/>
-      <path d="M0,592 C320,578 640,604 960,590 C1180,580 1340,600 1440,592 L1440,612 C1340,620 1180,600 960,612 C640,626 320,600 0,614 Z" fill="#ffffff" opacity="0.10"/>
-      <path d="M0,690 C360,676 720,702 1080,688 C1260,681 1380,698 1440,692 L1440,712 C1380,718 1260,702 1080,712 C720,726 360,700 0,714 Z" fill="#ffffff" opacity="0.12"/>
-
-      <!-- sailboat -->
-      <g class="boat" transform="translate(360,452)">
-        <path d="M-26,18 L26,18 L16,30 L-16,30 Z" fill="#fbf6f2"/>
-        <path d="M0,-26 L0,16 L20,16 Z" fill="#ffffff"/>
-        <path d="M0,-26 L0,16 L-16,16 Z" fill="#f1dfe2"/>
-      </g>
-
-      <!-- shoreline rocks -->
-      <g fill="#7b6f5e">
-        <ellipse cx="250" cy="760" rx="46" ry="20"/>
-        <ellipse cx="430" cy="788" rx="64" ry="26"/>
-        <ellipse cx="120" cy="800" rx="40" ry="18"/>
-        <ellipse cx="640" cy="812" rx="70" ry="28"/>
-      </g>
-      <g fill="#6a5f50" opacity="0.85">
-        <ellipse cx="430" cy="780" rx="40" ry="16"/>
-        <ellipse cx="640" cy="804" rx="44" ry="18"/>
-      </g>
-
-      <!-- sandy cove (lower right) -->
-      <path d="M1440,560 C1240,600 1080,720 980,900 L1440,900 Z" fill="url(#sand)"/>
-      <path d="M1440,560 C1300,592 1180,672 1120,820 C1180,720 1300,628 1440,612 Z" fill="#efe2c6" opacity="0.7"/>
-      <!-- a couple of rocks on the sand edge -->
-      <g fill="#c9b890">
-        <ellipse cx="1130" cy="838" rx="40" ry="16"/>
-        <ellipse cx="1240" cy="876" rx="54" ry="20"/>
-      </g>
-
-      <!-- headland with trees (right horizon) -->
-      <path d="M1300,432 C1340,418 1400,420 1440,430 L1440,470 L1300,470 Z" fill="#8fb39a" opacity="0.8"/>
-      <g fill="#6f9a7c" opacity="0.85">
-        <circle cx="1352" cy="424" r="12"/><circle cx="1378" cy="420" r="14"/><circle cx="1404" cy="426" r="11"/>
-      </g>
-
-      <!-- gulls -->
-      <g stroke="#5a5048" stroke-width="3" fill="none" stroke-linecap="round">
-        <g class="gull"><path d="M520,250 q12,-12 24,0 q12,-12 24,0"/></g>
-        <g class="gull2"><path d="M700,200 q9,-9 18,0 q9,-9 18,0"/></g>
-        <g class="gull" style="animation-delay:-3s"><path d="M860,280 q8,-8 16,0 q8,-8 16,0"/></g>
-      </g>
-    </svg>
-  </div>
-
   <div class="hero">
     <div class="kicker">Lovers Point · Pacific Grove, California</div>
     <h1>PB&amp;F Wedding Colors</h1>
