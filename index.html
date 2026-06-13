@@ -30,6 +30,8 @@
     text-align: center; padding: 64px 20px 40px;
     background: radial-gradient(120% 90% at 50% 0%, #fdeef0 0%, var(--bg) 60%);
   }
+  .hero-art { width: 168px; margin: 0 auto 14px; }
+  .hero-art svg { width: 100%; height: auto; display: block; }
   .hero .kicker {
     font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.34em;
     font-size: 11px; color: var(--muted); margin-bottom: 16px;
@@ -117,10 +119,24 @@
     animation: vbarIn .6s cubic-bezier(.22,1,.36,1) forwards;
   }
   .reco .sw {
+    position: relative;
     height: 58px; border-radius: 10px; border: 1px solid rgba(0,0,0,.06);
     transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
   }
   .reco:hover .sw { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(120,90,80,.18); }
+  /* avoid tiles get a dim wash + X badge */
+  .avoid-tile .sw::after {
+    content: ''; position: absolute; inset: 0; border-radius: 10px;
+    background: rgba(74,63,58,.16);
+  }
+  .avoid-tile .xmark {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.92);
+    color: #c0392b; display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 13px; font-weight: 700;
+    box-shadow: 0 1px 5px rgba(0,0,0,.22); z-index: 1;
+  }
+  .avoid-tile .nm { color: var(--muted); }
   @media (prefers-reduced-motion: reduce){ .reco { animation: none; opacity: 1; transform: none; } }
   .reco .nm { font-family: var(--sans); font-size: 12.5px; font-weight: 500; margin-top: 7px; color: var(--ink); }
   .reco .hx { font-family: var(--sans); font-size: 11px; color: var(--muted); letter-spacing: .03em; }
@@ -167,6 +183,37 @@
 </head>
 <body>
   <div class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 200 150">
+        <!-- driftwood frame -->
+        <g fill="#c4ad8c">
+          <path d="M57,40 L66,40 L70,148 L59,148 Z"/>
+          <path d="M150,38 L159,38 L161,148 L150,148 Z"/>
+          <path d="M50,44 C92,32 138,38 166,40 L164,49 C138,47 92,42 52,53 Z"/>
+        </g>
+        <g fill="#b39c7b" opacity="0.6">
+          <path d="M62,40 L64,148 L60,148 Z"/>
+          <path d="M154,38 L156,148 L152,148 Z"/>
+        </g>
+        <!-- draped fabric -->
+        <path d="M70,46 C98,62 132,60 158,46 C142,70 100,74 70,56 Z" fill="#f1e7da"/>
+        <!-- left floral cluster -->
+        <g>
+          <circle cx="63" cy="52" r="6" fill="#9fb98a"/><circle cx="84" cy="44" r="6" fill="#9fb98a"/>
+          <circle cx="58" cy="66" r="6" fill="#a9c294"/><circle cx="76" cy="60" r="5" fill="#9fb98a"/>
+          <circle cx="70" cy="44" r="7" fill="#e9b9c2"/><circle cx="82" cy="52" r="6" fill="#f3d3da"/>
+          <circle cx="62" cy="58" r="6" fill="#edc7cf"/><circle cx="74" cy="52" r="6" fill="#f6ece0"/>
+          <circle cx="56" cy="50" r="5" fill="#f3d3da"/><circle cx="68" cy="64" r="5" fill="#e9b9c2"/>
+        </g>
+        <!-- right floral cluster -->
+        <g>
+          <circle cx="148" cy="78" r="5" fill="#9fb98a"/><circle cx="162" cy="84" r="5" fill="#a9c294"/>
+          <circle cx="155" cy="74" r="6" fill="#f3d3da"/><circle cx="150" cy="86" r="6" fill="#e9b9c2"/>
+          <circle cx="160" cy="92" r="5" fill="#edc7cf"/><circle cx="156" cy="84" r="6" fill="#f6ece0"/>
+          <circle cx="150" cy="96" r="4" fill="#9fb98a"/>
+        </g>
+      </svg>
+    </div>
     <div class="kicker">Lovers Point · Pacific Grove, California</div>
     <h1>PB&amp;F Wedding Colors</h1>
     <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional — wear whatever makes you feel wonderful.</p>
@@ -217,7 +264,14 @@ const ACCENT = [
   { hex: '#F3E1A0', name: 'Soft Butter Yellow' },
   { hex: '#B9DEC9', name: 'Mint' },
 ];
-const AVOID = 'White, ivory & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
+const AVOID = [
+  { hex: '#FFFFFF', name: 'White' },
+  { hex: '#F7EDE8', name: 'Ivory' },
+  { hex: '#F6D8DE', name: 'Pale Blush' },
+  { hex: '#1B1B1B', name: 'All Black' },
+  { hex: '#E6FF12', name: 'Neon' },
+];
+const AVOID_TEXT = 'White, ivory & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
 
 const $ = s => document.querySelector(s);
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
@@ -243,6 +297,9 @@ DRESS.forEach((c,i)=>{
 function dots(list){ return `<div class="recos">${list.map((c,i)=>
   `<div class="reco" data-hex="${c.hex}" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s"><div class="sw" style="background:${c.hex}"></div>`
   + `<div class="nm">${c.name}</div><div class="hx">${c.hex}</div></div>`).join('')}</div>`; }
+function dotsX(list){ return `<div class="recos">${list.map((c,i)=>
+  `<div class="reco avoid-tile" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s"><div class="sw" style="background:${c.hex}"><span class="xmark">✕</span></div>`
+  + `<div class="nm">${c.name}</div></div>`).join('')}</div>`; }
 $('#guide').innerHTML = `
   <div class="row">
     <span class="badge best">Best to wear</span>
@@ -256,11 +313,12 @@ $('#guide').innerHTML = `
   </div>
   <div class="row">
     <span class="badge avoid">Please avoid</span>
-    <div class="txt"><div class="avoid-list">${AVOID}</div>
-      <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels.</div></div>
+    <div class="txt"><div class="lead">Lovely colors — just best saved for another day.</div>
+      <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels.</div>${dotsX(AVOID)}</div>
   </div>`;
 
 document.querySelectorAll('#guide .reco').forEach(el=>{
+  if(!el.dataset.hex) return;            // avoid tiles aren't copyable
   el.onclick=()=>{ const h=el.dataset.hex; navigator.clipboard.writeText(h); toast(h+' copied'); };
 });
 
@@ -293,7 +351,7 @@ $('#copyAll').onclick=()=>{
   const txt = "PB&F WEDDING — color ideas (totally optional!)\n\nBest to wear:\n"
     + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
-    + '\n\nPlease avoid: ' + AVOID.replace(/·/g,'•')
+    + '\n\nPlease avoid: ' + AVOID_TEXT.replace(/·/g,'•')
     + '\n\nThis is just friendly guidance — wear whatever makes you happy.';
   navigator.clipboard.writeText(txt); toast('Color guide copied');
 };
