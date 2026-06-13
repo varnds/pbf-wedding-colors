@@ -82,6 +82,7 @@
   }
   @keyframes vbarIn { to { opacity: 1; transform: translateY(0); } }
   .vbar:hover { flex-grow: 1.9; }
+  .vbar.gap-before { margin-left: 12px; }
   .vbar .vhex { font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: .03em; }
   .vbar .vname {
     font-family: var(--sans); font-size: 12px; margin-top: 9px; opacity: .9;
@@ -196,6 +197,7 @@
     .vbar .vhex { font-size: 13px; min-width: 64px; }
     .vbar .vname { height: auto; margin-top: 0; align-items: center; text-align: left; }
     .vbar .vname br { display: none; }
+    .vbar.gap-before { margin-left: 0; margin-top: 12px; }
   }
 </style>
 </head>
@@ -305,7 +307,7 @@ const TOP = [
   { hex: '#9DA8D6', name: 'Periwinkle' },
   { hex: '#A9BE97', name: 'Sage Green' },
   { hex: '#B98FB0', name: 'Mauve' },
-  { hex: '#F3E1A0', name: 'Butter Yellow' },
+  { hex: '#F3E1A0', name: 'Butter Yellow', gap: true },
   { hex: '#B9DEC9', name: 'Mint' },
 ];
 TOP.forEach((c,i)=>{
@@ -313,6 +315,7 @@ TOP.forEach((c,i)=>{
   const el=document.createElement('div'); el.className='vbar';
   el.style.background=c.hex; el.style.color=ink;
   el.style.animationDelay=(0.09*i)+'s';
+  if(c.gap) el.classList.add('gap-before');
   el.innerHTML=`<div class="vcopy">Tap to copy</div>
                 <div class="vhex">${c.hex.replace('#','').toUpperCase()}</div>
                 <div class="vname">${c.name.replace(' ','<br>')}</div>`;
