@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wedding by the Pacific — Colors</title>
+<title>Wedding by the Pacific Colors</title>
 <meta name="description" content="Optional color ideas for guests at the Wedding by the Pacific." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -139,6 +139,17 @@
     box-shadow: 0 1px 5px rgba(0,0,0,.22); z-index: 1;
   }
   .avoid-tile .nm { color: var(--muted); }
+  .floral-sw {
+    background-color: #f6ece0;
+    background-image:
+      radial-gradient(circle at 22% 32%, #e9b9c2 9%, transparent 10%),
+      radial-gradient(circle at 64% 26%, #c9a8d4 8%, transparent 9%),
+      radial-gradient(circle at 82% 60%, #9fb98a 7%, transparent 8%),
+      radial-gradient(circle at 40% 70%, #f3d3da 9%, transparent 10%),
+      radial-gradient(circle at 14% 74%, #a9c294 7%, transparent 8%),
+      radial-gradient(circle at 88% 22%, #edc7cf 6%, transparent 7%);
+    background-size: 100% 100%;
+  }
   @media (prefers-reduced-motion: reduce){ .reco { animation: none; opacity: 1; transform: none; } }
   .reco .nm { font-family: var(--sans); font-size: 12.5px; font-weight: 500; margin-top: 7px; color: var(--ink); }
   .reco .hx { font-family: var(--sans); font-size: 11px; color: var(--muted); letter-spacing: .03em; }
@@ -218,7 +229,7 @@
     </div>
     <div class="kicker">Lovers Point · Pacific Grove, California</div>
     <h1>Wedding by the Pacific</h1>
-    <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional — wear whatever makes you feel wonderful.</p>
+    <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional, wear whatever makes you feel wonderful.</p>
   </div>
 
   <div class="wrap">
@@ -273,8 +284,9 @@ const AVOID = [
   { hex: '#F6D8DE', name: 'Pale Blush' },
   { hex: '#1B1B1B', name: 'All Black' },
   { hex: '#E6FF12', name: 'Neon' },
+  { pattern: 'floral', name: 'Florals' },
 ];
-const AVOID_TEXT = 'White, ivory, beige/cream & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
+const AVOID_TEXT = 'White, ivory, beige/cream & palest blush (the bride’s colors) · all-black · bright neons or hot brights · floral prints';
 
 const $ = s => document.querySelector(s);
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
@@ -300,9 +312,13 @@ DRESS.forEach((c,i)=>{
 function dots(list){ return `<div class="recos">${list.map((c,i)=>
   `<div class="reco" data-hex="${c.hex}" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s"><div class="sw" style="background:${c.hex}"></div>`
   + `<div class="nm">${c.name}</div><div class="hx">${c.hex}</div></div>`).join('')}</div>`; }
-function dotsX(list){ return `<div class="recos">${list.map((c,i)=>
-  `<div class="reco avoid-tile" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s"><div class="sw" style="background:${c.hex}"><span class="xmark">✕</span></div>`
-  + `<div class="nm">${c.name}</div></div>`).join('')}</div>`; }
+function dotsX(list){ return `<div class="recos">${list.map((c,i)=>{
+  const sw = c.pattern==='floral'
+    ? `<div class="sw floral-sw"><span class="xmark">✕</span></div>`
+    : `<div class="sw" style="background:${c.hex}"><span class="xmark">✕</span></div>`;
+  return `<div class="reco avoid-tile" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s">${sw}`
+  + `<div class="nm">${c.name}</div></div>`;
+}).join('')}</div>`; }
 $('#guide').innerHTML = `
   <div class="row">
     <span class="badge best">Best to wear</span>
@@ -316,7 +332,7 @@ $('#guide').innerHTML = `
   </div>
   <div class="row">
     <span class="badge avoid">Please avoid</span>
-    <div class="txt"><div class="lead">Lovely colors — just best saved for another day.</div>
+    <div class="txt"><div class="lead">Lovely colors, just best saved for another day.</div>
       <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels; and floral prints are the bride's, so keep yours solid or simple.</div>${dotsX(AVOID)}</div>
   </div>`;
 
@@ -325,17 +341,17 @@ document.querySelectorAll('#guide .reco').forEach(el=>{
   el.onclick=()=>{ const h=el.dataset.hex; navigator.clipboard.writeText(h); toast(h+' copied'); };
 });
 
-// how to wear it — ideas for everyone
+// how to wear it, ideas for everyone
 $('#attire').innerHTML = `
   <h3>How to wear it</h3>
-  <div class="intro">Not sure how to work these colors into an outfit? Here are a few easy ideas — mix, match, or ignore entirely. There's no dress code, just a vibe. One small ask: <strong>please keep prints solid or simple — no florals</strong> (those are the bride's).</div>
+  <div class="intro">Not sure how to work these colors into an outfit? Here are a few easy ideas, mix, match, or ignore entirely. There's no dress code, just a vibe. One small ask: <strong>please keep prints solid or simple, no florals</strong> (those are the bride's).</div>
   <div class="attire-grid">
     <div class="attire-card">
       <div class="who">For her</div>
       <ul>
-        <li>A dress or jumpsuit in any of the soft tones — dusty rose, lavender, periwinkle or sage all work beautifully.</li>
-        <li>Solid colors or subtle textures — please skip floral prints.</li>
-        <li>Keep accessories light — gold, blush or a muted metallic.</li>
+        <li>A dress or jumpsuit in any of the soft tones, dusty rose, lavender, periwinkle or sage all work beautifully.</li>
+        <li>Solid colors or subtle textures, please skip floral prints.</li>
+        <li>Keep accessories light, gold, blush or a muted metallic.</li>
         <li>Prefer a pop? A butter-yellow or mint piece stands out without clashing.</li>
       </ul>
     </div>
@@ -345,17 +361,17 @@ $('#attire').innerHTML = `
         <li>Lean into the palette with soft-toned looks, or keep it simple with light grey.</li>
         <li>Bring the colors in through details: a lavender, sage, periwinkle, or dusty-rose tie, shirt, or pocket square.</li>
         <li>A pastel-toned shirt under a light jacket is an easy, polished look.</li>
-        <li>Keep it light and soft — skip black, charcoal and dark navy; solid patterns only, no florals.</li>
+        <li>Keep it light and soft, skip black, charcoal and dark navy; solid patterns only, no florals.</li>
       </ul>
     </div>
   </div>`;
 
 $('#copyAll').onclick=()=>{
-  const txt = "WEDDING BY THE PACIFIC — color ideas (totally optional!)\n\nBest to wear:\n"
+  const txt = "WEDDING BY THE PACIFIC, color ideas (totally optional!)\n\nBest to wear:\n"
     + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nPlease avoid: ' + AVOID_TEXT.replace(/·/g,'•')
-    + '\n\nThis is just friendly guidance — wear whatever makes you happy.';
+    + '\n\nThis is just friendly guidance, wear whatever makes you happy.';
   navigator.clipboard.writeText(txt); toast('Color guide copied');
 };
 
@@ -375,7 +391,7 @@ $('#download').onclick=()=>{
   x.fillStyle='#6b5b54'; x.font='14px sans-serif';
   wrapText(x,'White, ivory, beige/cream & palest blush · all-black · bright neons', lx, y+26, w-lx-60, 22);
   x.fillStyle='#9a8c84'; x.font='italic 14px Georgia';
-  x.fillText('Just a friendly suggestion — wear whatever makes you happy.', lx, y+72);
+  x.fillText('Just a friendly suggestion, wear whatever makes you happy.', lx, y+72);
 
   const a=document.createElement('a'); a.download='pbf-wedding-color-guide.png'; a.href=c.toDataURL(); a.click();
   toast('Guide image saved');
