@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wedding by the Pacific Colors</title>
-<meta name="description" content="Optional color ideas for guests at the Wedding by the Pacific." />
+<title>PB&F Wedding by the Pacific</title>
+<meta name="description" content="Optional color ideas for guests at the PB&F Wedding by the Pacific." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -21,7 +21,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: var(--serif);
-    background: linear-gradient(180deg, #fde6ea 0%, #f6e9ee 26%, #e3e8f3 56%, #c4ddf5 82%, #aed3f6 100%);
+    background: linear-gradient(180deg, #fde6ea 0%, #f6ebee 24%, #e1eef2 52%, #ccebf5 78%, #b3e6f5 100%);
     background-attachment: fixed;
     min-height: 100vh;
     color: var(--ink);
@@ -228,7 +228,7 @@
       </svg>
     </div>
     <div class="kicker">Lovers Point · Pacific Grove, California</div>
-    <h1>Wedding by the Pacific</h1>
+    <h1>PB&amp;F Wedding by the Pacific</h1>
     <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional, wear whatever makes you feel wonderful.</p>
   </div>
 
@@ -367,7 +367,7 @@ $('#attire').innerHTML = `
   </div>`;
 
 $('#copyAll').onclick=()=>{
-  const txt = "WEDDING BY THE PACIFIC, color ideas (totally optional!)\n\nBest to wear:\n"
+  const txt = "PB&F WEDDING BY THE PACIFIC, color ideas (totally optional!)\n\nBest to wear:\n"
     + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nPlease avoid: ' + AVOID_TEXT.replace(/·/g,'•')
@@ -382,7 +382,7 @@ $('#download').onclick=()=>{
   const lx=60;
   x.textAlign='left';
   x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE · OPTIONAL', lx, 60);
-  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("Wedding by the Pacific", lx, 104);
+  x.fillStyle='#4a3f3a'; x.font='38px Georgia'; x.fillText("PB&F Wedding by the Pacific", lx, 104);
 
   let y=170;
   section(x,'BEST TO WEAR','#5a7a4a',BEST,lx,y); y+=170;
