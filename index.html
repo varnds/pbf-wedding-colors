@@ -152,6 +152,10 @@
     font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .12em;
     text-transform: uppercase; color: #b08a90; margin-bottom: 12px;
   }
+  .attire-icons { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-end; }
+  .attire-icons figure { text-align: center; }
+  .attire-icons svg { width: 46px; height: 64px; display: block; margin: 0 auto; }
+  .attire-icons figcaption { font-family: var(--sans); font-size: 10.5px; color: var(--muted); margin-top: 5px; }
   .attire-card ul { list-style: none; }
   .attire-card li {
     font-family: var(--sans); font-size: 13.5px; color: #5e514b; line-height: 1.5;
@@ -314,7 +318,7 @@ $('#guide').innerHTML = `
   <div class="row">
     <span class="badge avoid">Please avoid</span>
     <div class="txt"><div class="lead">Lovely colors — just best saved for another day.</div>
-      <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels.</div>${dotsX(AVOID)}</div>
+      <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels; and floral prints are the bride's, so keep yours solid or simple.</div>${dotsX(AVOID)}</div>
   </div>`;
 
 document.querySelectorAll('#guide .reco').forEach(el=>{
@@ -325,24 +329,52 @@ document.querySelectorAll('#guide .reco').forEach(el=>{
 // how to wear it — ideas for everyone
 $('#attire').innerHTML = `
   <h3>How to wear it</h3>
-  <div class="intro">Not sure how to work these colors into an outfit? Here are a few easy ideas — mix, match, or ignore entirely. There's no dress code, just a vibe.</div>
+  <div class="intro">Not sure how to work these colors into an outfit? Here are a few easy ideas — mix, match, or ignore entirely. There's no dress code, just a vibe. One small ask: <strong>please keep prints solid or simple — no florals</strong> (those are the bride's).</div>
   <div class="attire-grid">
     <div class="attire-card">
       <div class="who">For her</div>
+      <div class="attire-icons">
+        <figure>
+          <svg viewBox="0 0 64 88"><path d="M24,14 L40,14 L37,36 L52,80 L12,80 L27,36 Z" fill="#D98FA0"/><path d="M27,36 L37,36" stroke="#b9707f" stroke-width="2"/></svg>
+          <figcaption>Dress</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 64 88"><path d="M24,14 L40,14 L39,44 L25,44 Z" fill="#C9A8D4"/><path d="M25,44 L31,44 L30,80 L26,80 Z" fill="#C9A8D4"/><path d="M33,44 L39,44 L38,80 L34,80 Z" fill="#C9A8D4"/></svg>
+          <figcaption>Jumpsuit</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 64 88"><rect x="14" y="42" width="36" height="22" rx="6" fill="#A9BE97"/><path d="M14,48 Q32,30 50,48" fill="none" stroke="#8aa178" stroke-width="2"/></svg>
+          <figcaption>Clutch</figcaption>
+        </figure>
+      </div>
       <ul>
         <li>A dress or jumpsuit in any of the soft tones — dusty rose, lavender, periwinkle or sage all work beautifully.</li>
-        <li>Florals and watercolor prints fit the romantic, garden feel.</li>
+        <li>Solid colors or subtle textures — please skip floral prints.</li>
         <li>Keep accessories light — gold, blush or a muted metallic.</li>
         <li>Prefer a pop? A butter-yellow or mint piece stands out without clashing.</li>
       </ul>
     </div>
     <div class="attire-card">
       <div class="who">For him</div>
+      <div class="attire-icons">
+        <figure>
+          <svg viewBox="0 0 64 88"><path d="M18,18 L46,18 L50,80 L14,80 Z" fill="#8a96a8"/><path d="M32,18 L24,46 L32,34 Z" fill="#737f92"/><path d="M32,18 L40,46 L32,34 Z" fill="#737f92"/><rect x="39" y="40" width="9" height="3" rx="1" fill="#D98FA0"/></svg>
+          <figcaption>Suit</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 64 88"><path d="M20,18 L44,18 L44,80 L20,80 Z" fill="#f1f5fa"/><path d="M26,18 L32,26 L38,18 Z" fill="#ffffff" stroke="#dde3ea"/><path d="M32,26 L29,30 L32,62 L35,30 Z" fill="#9DA8D6"/></svg>
+          <figcaption>Shirt &amp; tie</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 64 88"><path d="M14,40 L30,33 L30,55 L14,48 Z" fill="#D98FA0"/><path d="M50,40 L34,33 L34,55 L50,48 Z" fill="#D98FA0"/><rect x="29" y="38" width="6" height="12" rx="2" fill="#b9707f"/></svg>
+          <figcaption>Bow tie</figcaption>
+        </figure>
+      </div>
       <ul>
         <li>A soft neutral suit — light grey, tan/beige, or a muted navy.</li>
         <li>Tie the palette in with the details: a lavender, sage, or dusty-rose tie, shirt, or pocket square.</li>
         <li>A pastel-toned shirt under a neutral jacket is an easy, polished look.</li>
-        <li>Skip stark white suits and all-black; lean lighter and warmer.</li>
+        <li>Solid or subtle patterns only — no florals; and skip stark white suits and all-black.</li>
       </ul>
     </div>
   </div>`;
