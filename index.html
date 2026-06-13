@@ -21,14 +21,16 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: var(--serif);
-    background: var(--bg);
+    background: linear-gradient(180deg, #fde6ea 0%, #f6e9ee 26%, #e3e8f3 56%, #c4ddf5 82%, #aed3f6 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
   }
   .hero {
     text-align: center; padding: 64px 20px 40px;
-    background: radial-gradient(120% 90% at 50% 0%, #fdeef0 0%, var(--bg) 60%);
+    background: transparent;
   }
   .hero-art { width: 168px; margin: 0 auto 14px; }
   .hero-art svg { width: 100%; height: auto; display: block; }
