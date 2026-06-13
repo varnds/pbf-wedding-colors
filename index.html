@@ -182,7 +182,21 @@
   }
   .toast.show { opacity: 1; }
 
-  @media (max-width: 600px){ .hero h1 { font-size: 38px; } .swatches { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 600px){
+    .hero h1 { font-size: 38px; }
+    /* stack the palette as full-width rows so nothing is cut off */
+    .vbars { flex-direction: column; min-height: 0; }
+    .vbar {
+      flex: none; flex-direction: row; justify-content: flex-start; align-items: center;
+      gap: 14px; height: 50px; padding: 0 22px; text-align: left;
+      opacity: 1; transform: none; animation: none;
+    }
+    .vbar:hover { flex-grow: 0; }
+    .vbar .vcopy { display: none; }
+    .vbar .vhex { font-size: 13px; min-width: 64px; }
+    .vbar .vname { height: auto; margin-top: 0; align-items: center; text-align: left; }
+    .vbar .vname br { display: none; }
+  }
 </style>
 </head>
 <body>
