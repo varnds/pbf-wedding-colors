@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PB&F Wedding Colors</title>
+<title>Wedding by the Pacific — Colors</title>
 <meta name="description" content="Optional color ideas for guests at the PB&F wedding." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -215,7 +215,7 @@
       </svg>
     </div>
     <div class="kicker">Lovers Point · Pacific Grove, California</div>
-    <h1>PB&amp;F Wedding Colors</h1>
+    <h1>Wedding by the Pacific</h1>
     <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional — wear whatever makes you feel wonderful.</p>
   </div>
 
@@ -240,7 +240,7 @@
     </div>
   </div>
 
-  <footer>Made with love for PB&amp;F's big day · tap any swatch to copy its color</footer>
+  <footer>Made with love for the big day · tap any swatch to copy its color</footer>
 
   <div class="toast" id="toast"></div>
 
@@ -349,7 +349,7 @@ $('#attire').innerHTML = `
   </div>`;
 
 $('#copyAll').onclick=()=>{
-  const txt = "PB&F WEDDING — color ideas (totally optional!)\n\nBest to wear:\n"
+  const txt = "WEDDING BY THE PACIFIC — color ideas (totally optional!)\n\nBest to wear:\n"
     + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nPlease avoid: ' + AVOID_TEXT.replace(/·/g,'•')
@@ -364,7 +364,7 @@ $('#download').onclick=()=>{
   const lx=60;
   x.textAlign='left';
   x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE · OPTIONAL', lx, 60);
-  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("PB&F Wedding Colors", lx, 104);
+  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("Wedding by the Pacific", lx, 104);
 
   let y=170;
   section(x,'BEST TO WEAR','#5a7a4a',BEST,lx,y); y+=170;
