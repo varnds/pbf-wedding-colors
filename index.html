@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PB&F Wedding Colors</title>
-<meta name="description" content="What colors to wear to Fatima's wedding — a palette pulled from the bride's gown." />
+<meta name="description" content="Optional color ideas for guests at the PB&F wedding." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -126,6 +126,23 @@
   .reco .hx { font-family: var(--sans); font-size: 11px; color: var(--muted); letter-spacing: .03em; }
   .avoid-list { font-family: var(--sans); font-size: 14px; color: #6b5b54; }
 
+  /* For her / For him attire ideas */
+  .attire { padding: 8px 34px 30px; border-top: 1px solid var(--line); }
+  .attire h3 { font-size: 22px; font-weight: 500; margin: 14px 0 4px; }
+  .attire .intro { font-family: var(--sans); font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+  .attire-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+  .attire-card { flex: 1 1 280px; background: #faf5f1; border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; }
+  .attire-card .who {
+    font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: #b08a90; margin-bottom: 12px;
+  }
+  .attire-card ul { list-style: none; }
+  .attire-card li {
+    font-family: var(--sans); font-size: 13.5px; color: #5e514b; line-height: 1.5;
+    padding: 6px 0 6px 22px; position: relative;
+  }
+  .attire-card li::before { content: '✦'; position: absolute; left: 0; color: #c9a8d4; font-size: 12px; top: 7px; }
+
   .actions { display: flex; gap: 12px; padding: 0 34px 36px; flex-wrap: wrap; }
   button {
     font-family: var(--sans); border: none; border-radius: 999px; padding: 13px 24px;
@@ -152,30 +169,22 @@
   <div class="hero">
     <div class="kicker">Wedding Guest Color Guide</div>
     <h1>PB&amp;F Wedding Colors</h1>
-    <p>Wondering what to wear? Here's a palette pulled straight from the bride's gown — pick any of these and you'll fit right in.</p>
+    <p>A few friendly color ideas to help guests feel coordinated on the day. This is just gentle guidance, completely optional — wear whatever makes you feel wonderful.</p>
   </div>
 
   <div class="wrap">
     <div class="card" id="card">
-      <div class="top">
-        <div class="photo" id="photo">
-          <img id="dressImgEl" alt="the bride's gown" />
-          <div class="ph">
-            <div style="font-size:30px">👗</div>
-            <div><strong>Dress photo goes here</strong></div>
-            <div>Save it as <code>assets/dress.png</code></div>
-          </div>
+      <div class="palette-side">
+        <div class="palette-head">
+          <h2>The Wedding Palette</h2>
+          <div class="sub">Colors inspired by the celebration</div>
         </div>
-        <div class="palette-side">
-          <div class="palette-head">
-            <h2>The Dress Palette</h2>
-            <div class="sub">Colors found in the gown</div>
-          </div>
-          <div class="vbars" id="swatches"></div>
-        </div>
+        <div class="vbars" id="swatches"></div>
       </div>
 
       <div class="guide" id="guide"></div>
+
+      <div class="attire" id="attire"></div>
 
       <div class="actions">
         <button class="btn-primary" id="copyAll">Copy color list</button>
@@ -208,9 +217,7 @@ const ACCENT = [
   { hex: '#F3E1A0', name: 'Soft Butter Yellow' },
   { hex: '#B9DEC9', name: 'Mint' },
 ];
-const AVOID = 'White, ivory & palest blush (too close to the bride’s gown) · all-black · bright neons or hot brights';
-const CROP_TOP = 0.27;    // remove the head/face from the top
-const CROP_BOTTOM = 0.07; // remove the carousel buttons at the bottom
+const AVOID = 'White, ivory & palest blush (the bride’s colors) · all-black · bright neons or hot brights';
 
 const $ = s => document.querySelector(s);
 function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
@@ -239,13 +246,13 @@ function dots(list){ return `<div class="recos">${list.map((c,i)=>
 $('#guide').innerHTML = `
   <div class="row">
     <span class="badge best">Best to wear</span>
-    <div class="txt"><div class="lead">Tones from the dress and their close neighbors on the color wheel.</div>
-      <div class="why">These <em>analogous</em> colors blend with the gown, so the whole party looks coordinated in photos.</div>${dots(BEST)}</div>
+    <div class="txt"><div class="lead">Tones from the wedding palette and their close neighbors on the color wheel.</div>
+      <div class="why">These <em>analogous</em> colors blend with the palette, so the whole party looks coordinated in photos.</div>${dots(BEST)}</div>
   </div>
   <div class="row">
     <span class="badge accent">Fun accent</span>
     <div class="txt"><div class="lead">A little pop, if you'd rather not wear pink.</div>
-      <div class="why">These sit <em>opposite</em> the dress's pinks on the color wheel (complementary), so they contrast nicely without clashing.</div>${dots(ACCENT)}</div>
+      <div class="why">These sit <em>opposite</em> the palette's pinks on the color wheel (complementary), so they contrast nicely without clashing.</div>${dots(ACCENT)}</div>
   </div>
   <div class="row">
     <span class="badge avoid">Please avoid</span>
@@ -257,55 +264,59 @@ document.querySelectorAll('#guide .reco').forEach(el=>{
   el.onclick=()=>{ const h=el.dataset.hex; navigator.clipboard.writeText(h); toast(h+' copied'); };
 });
 
-// load the photo, then crop off the face (top) and the carousel buttons (bottom)
-const dressImg = new Image();   // holds the CROPPED image, used for display + download
-const rawImg = new Image();
-rawImg.onload = ()=>{
-  const sy = Math.round(rawImg.naturalHeight * CROP_TOP);
-  const sh = Math.round(rawImg.naturalHeight * (1 - CROP_TOP - CROP_BOTTOM));
-  const cc = document.createElement('canvas');
-  cc.width = rawImg.naturalWidth; cc.height = sh;
-  cc.getContext('2d').drawImage(rawImg, 0, sy, rawImg.naturalWidth, sh, 0, 0, rawImg.naturalWidth, sh);
-  const url = cc.toDataURL('image/png');
-  dressImg.src = url;
-  $('#dressImgEl').src = url;
-  $('#photo').classList.add('has-img');
-};
-rawImg.src = 'assets/dress.png';
+// how to wear it — ideas for everyone
+$('#attire').innerHTML = `
+  <h3>How to wear it</h3>
+  <div class="intro">Not sure how to work these colors into an outfit? Here are a few easy ideas — mix, match, or ignore entirely. There's no dress code, just a vibe.</div>
+  <div class="attire-grid">
+    <div class="attire-card">
+      <div class="who">For her</div>
+      <ul>
+        <li>A dress or jumpsuit in any of the soft tones — dusty rose, lavender, periwinkle or sage all work beautifully.</li>
+        <li>Florals and watercolor prints fit the romantic, garden feel.</li>
+        <li>Keep accessories light — gold, blush or a muted metallic.</li>
+        <li>Prefer a pop? A butter-yellow or mint piece stands out without clashing.</li>
+      </ul>
+    </div>
+    <div class="attire-card">
+      <div class="who">For him</div>
+      <ul>
+        <li>A soft neutral suit — light grey, tan/beige, or a muted navy.</li>
+        <li>Tie the palette in with the details: a lavender, sage, or dusty-rose tie, shirt, or pocket square.</li>
+        <li>A pastel-toned shirt under a neutral jacket is an easy, polished look.</li>
+        <li>Skip stark white suits and all-black; lean lighter and warmer.</li>
+      </ul>
+    </div>
+  </div>`;
 
 $('#copyAll').onclick=()=>{
-  const txt = "FATIMA'S WEDDING — what to wear\n\nBest to wear:\n"
+  const txt = "PB&F WEDDING — color ideas (totally optional!)\n\nBest to wear:\n"
     + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
     + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
-    + '\n\nPlease avoid: ' + AVOID.replace(/·/g,'•');
+    + '\n\nPlease avoid: ' + AVOID.replace(/·/g,'•')
+    + '\n\nThis is just friendly guidance — wear whatever makes you happy.';
   navigator.clipboard.writeText(txt); toast('Color guide copied');
 };
 
 $('#download').onclick=()=>{
-  const w=1100, h=720, c=document.createElement('canvas'); c.width=w; c.height=h;
+  const w=1100, h=620, c=document.createElement('canvas'); c.width=w; c.height=h;
   const x=c.getContext('2d');
   x.fillStyle='#fbf6f2'; x.fillRect(0,0,w,h);
-  const imW=380, imX=40, imY=40, imH=h-80;
-  if(dressImg.complete && dressImg.naturalWidth){
-    const sw=dressImg.naturalWidth, sh=dressImg.naturalHeight;
-    const r=Math.max(imW/sw, imH/sh), dw=sw*r, dh=sh*r;
-    x.save(); roundRect(x,imX,imY,imW,imH,18); x.clip();
-    x.drawImage(dressImg, imX+(imW-dw)/2, imY+(imH-dh)/2, dw, dh); x.restore();
-  } else { x.fillStyle='#f0e6df'; roundRect(x,imX,imY,imW,imH,18); x.fill(); }
-
-  const lx=imX+imW+44;
+  const lx=60;
   x.textAlign='left';
-  x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE', lx, 66);
-  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("PB&F Wedding Colors", lx, 110);
+  x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE · OPTIONAL', lx, 60);
+  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("PB&F Wedding Colors", lx, 104);
 
   let y=170;
   section(x,'BEST TO WEAR','#5a7a4a',BEST,lx,y); y+=170;
   section(x,'FUN ACCENT','#a08534',ACCENT,lx,y); y+=120;
   x.fillStyle='#b06b6b'; x.font='bold 14px sans-serif'; x.fillText('PLEASE AVOID', lx, y);
   x.fillStyle='#6b5b54'; x.font='14px sans-serif';
-  wrapText(x,'White, ivory & palest blush · all-black · bright neons', lx, y+26, w-lx-40, 22);
+  wrapText(x,'White, ivory & palest blush · all-black · bright neons', lx, y+26, w-lx-60, 22);
+  x.fillStyle='#9a8c84'; x.font='italic 14px Georgia';
+  x.fillText('Just a friendly suggestion — wear whatever makes you happy.', lx, y+72);
 
-  const a=document.createElement('a'); a.download='fatima-wedding-color-guide.png'; a.href=c.toDataURL(); a.click();
+  const a=document.createElement('a'); a.download='pbf-wedding-color-guide.png'; a.href=c.toDataURL(); a.click();
   toast('Guide image saved');
 };
 function section(x,title,col,list,lx,y){
