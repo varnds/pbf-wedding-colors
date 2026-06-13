@@ -237,10 +237,6 @@
 
       <div class="attire" id="attire"></div>
 
-      <div class="actions">
-        <button class="btn-primary" id="copyAll">Copy color list</button>
-        <button class="btn-ghost" id="download">Save guide as image</button>
-      </div>
     </div>
   </div>
 
@@ -370,55 +366,6 @@ $('#attire').innerHTML = `
     </div>
   </div>`;
 
-$('#copyAll').onclick=()=>{
-  const txt = "PB&F WEDDING BY THE PACIFIC, color ideas (totally optional!)\n\nBest to wear:\n"
-    + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
-    + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
-    + '\n\nPlease avoid: ' + AVOID_TEXT.replace(/·/g,'•')
-    + '\n\nThis is just friendly guidance, wear whatever makes you happy.';
-  navigator.clipboard.writeText(txt); toast('Color guide copied');
-};
-
-$('#download').onclick=()=>{
-  const w=1100, h=620, c=document.createElement('canvas'); c.width=w; c.height=h;
-  const x=c.getContext('2d');
-  x.fillStyle='#fbf6f2'; x.fillRect(0,0,w,h);
-  const lx=60;
-  x.textAlign='left';
-  x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE · OPTIONAL', lx, 60);
-  x.fillStyle='#4a3f3a'; x.font='38px Georgia'; x.fillText("PB&F Wedding by the Pacific", lx, 104);
-
-  let y=170;
-  section(x,'BEST TO WEAR','#5a7a4a',BEST,lx,y); y+=170;
-  section(x,'FUN ACCENT','#a08534',ACCENT,lx,y); y+=120;
-  x.fillStyle='#b06b6b'; x.font='bold 14px sans-serif'; x.fillText('PLEASE AVOID', lx, y);
-  x.fillStyle='#6b5b54'; x.font='14px sans-serif';
-  wrapText(x,'White, ivory, beige/cream & palest blush · all-black · bright neons', lx, y+26, w-lx-60, 22);
-  x.fillStyle='#9a8c84'; x.font='italic 14px Georgia';
-  x.fillText('Just a friendly suggestion, wear whatever makes you happy.', lx, y+72);
-
-  const a=document.createElement('a'); a.download='pbf-wedding-color-guide.png'; a.href=c.toDataURL(); a.click();
-  toast('Guide image saved');
-};
-function section(x,title,col,list,lx,y){
-  x.fillStyle=col; x.font='bold 14px sans-serif'; x.textAlign='left'; x.fillText(title, lx, y);
-  list.forEach((c,i)=>{
-    const cx=lx+i*120, cy=y+22;
-    x.fillStyle=c.hex; roundRect(x,cx,cy,104,64,12); x.fill();
-    x.strokeStyle='rgba(0,0,0,.06)'; x.stroke();
-    x.fillStyle='#4a3f3a'; x.font='12px sans-serif'; x.textAlign='center';
-    x.fillText(c.name, cx+52, cy+86); x.fillStyle='#9a8c84'; x.font='11px sans-serif';
-    x.fillText(c.hex, cx+52, cy+102);
-  });
-  x.textAlign='left';
-}
-function wrapText(x,t,px,py,maxW,lh){ const words=t.split(' '); let line='',yy=py;
-  for(const w of words){ const test=line+w+' ';
-    if(x.measureText(test).width>maxW && line){ x.fillText(line,px,yy); line=w+' '; yy+=lh; } else line=test; }
-  x.fillText(line,px,yy); }
-function roundRect(x,px,py,w,h,r){ x.beginPath(); x.moveTo(px+r,py);
-  x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
-  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath(); }
 </script>
 </body>
 </html>
