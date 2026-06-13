@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PB&F Wedding Colors</title>
+<meta name="description" content="What colors to wear to Fatima's wedding — a palette pulled from the bride's gown." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbf6f2;
+    --ink: #4a3f3a;
+    --muted: #9a8c84;
+    --card: #ffffff;
+    --line: #ece2db;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .hero {
+    text-align: center; padding: 64px 20px 40px;
+    background: radial-gradient(120% 90% at 50% 0%, #fdeef0 0%, var(--bg) 60%);
+  }
+  .hero .kicker {
+    font-family: var(--sans); text-transform: uppercase; letter-spacing: 0.34em;
+    font-size: 11px; color: var(--muted); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 50px; font-weight: 500; line-height: 1.05; }
+  .hero h1 .amp { font-style: italic; color: #c98a96; }
+  .hero p { color: var(--muted); font-size: 18px; margin-top: 16px; max-width: 520px; margin-inline: auto; }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px 80px; }
+
+  .card {
+    background: var(--card); border-radius: 24px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(120,90,80,.13); border: 1px solid var(--line);
+  }
+  .top { display: flex; flex-wrap: wrap; }
+  .photo { flex: 1 1 320px; min-height: 480px; background: #f0e6df; position: relative; overflow: hidden; }
+  .photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center top; display: none;
+  }
+  .photo.has-img img { display: block; }
+  .photo .ph {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px; color: var(--muted); text-align: center; padding: 24px;
+    font-family: var(--sans); font-size: 13px;
+  }
+  .photo.has-img .ph { display: none; }
+  .photo .ph code { background: #f6ece6; padding: 2px 6px; border-radius: 5px; }
+
+  .palette-side { flex: 1 1 360px; display: flex; flex-direction: column; }
+  .palette-head { padding: 30px 32px 18px; }
+  .palette-side h2 { font-size: 28px; font-weight: 500; margin-bottom: 2px; }
+  .palette-side .sub {
+    font-family: var(--sans); font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  /* vertical color columns */
+  .vbars { flex: 1; display: flex; min-height: 380px; }
+  .vbar {
+    flex: 1; position: relative; cursor: pointer; display: flex;
+    flex-direction: column; justify-content: flex-end; align-items: center;
+    padding: 0 6px 30px; text-align: center;
+    transition: flex-grow .35s cubic-bezier(.22,1,.36,1);
+    opacity: 0; transform: translateY(26px);
+    animation: vbarIn .7s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes vbarIn { to { opacity: 1; transform: translateY(0); } }
+  .vbar:hover { flex-grow: 1.9; }
+  .vbar .vhex { font-family: var(--sans); font-weight: 600; font-size: 13px; letter-spacing: .03em; }
+  .vbar .vname {
+    font-family: var(--sans); font-size: 12px; margin-top: 9px; opacity: .9;
+    transition: opacity .35s ease;
+    line-height: 1.25; height: 2.5em; /* reserve 2 lines so text never shifts on hover */
+    display: flex; align-items: flex-start; justify-content: center; text-align: center;
+  }
+  .vbar:hover .vname { opacity: 1; }
+  @media (prefers-reduced-motion: reduce){
+    .vbar { animation: none; opacity: 1; transform: none; }
+  }
+  .vbar .vcopy {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    font-family: var(--sans); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    opacity: 0; transition: opacity .2s;
+  }
+  .vbar:hover .vcopy { opacity: .65; }
+
+  .guide { padding: 6px 34px 32px; }
+  .guide .row { display: flex; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); align-items: flex-start; }
+  .guide .row:first-child { border-top: none; }
+  .guide .badge {
+    font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: .07em;
+    text-transform: uppercase; padding: 6px 12px; border-radius: 999px; white-space: nowrap; margin-top: 3px;
+  }
+  .badge.best { background: #e6f0e0; color: #5a7a4a; }
+  .badge.accent { background: #fdf2d9; color: #a08534; }
+  .badge.avoid { background: #f6e2e2; color: #b06b6b; }
+  .guide .row .txt { flex: 1; }
+  .guide .row .txt .lead { font-size: 18px; margin-bottom: 4px; }
+  .guide .row .txt .why { font-family: var(--sans); font-size: 12.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.45; }
+  .guide .row .txt .why em { font-style: italic; color: #b08a90; }
+  .recos { display: flex; gap: 12px; flex-wrap: wrap; }
+  .reco {
+    width: 104px; cursor: pointer;
+    opacity: 0; transform: translateY(18px);
+    animation: vbarIn .6s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .reco .sw {
+    height: 58px; border-radius: 10px; border: 1px solid rgba(0,0,0,.06);
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+  }
+  .reco:hover .sw { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(120,90,80,.18); }
+  @media (prefers-reduced-motion: reduce){ .reco { animation: none; opacity: 1; transform: none; } }
+  .reco .nm { font-family: var(--sans); font-size: 12.5px; font-weight: 500; margin-top: 7px; color: var(--ink); }
+  .reco .hx { font-family: var(--sans); font-size: 11px; color: var(--muted); letter-spacing: .03em; }
+  .avoid-list { font-family: var(--sans); font-size: 14px; color: #6b5b54; }
+
+  .actions { display: flex; gap: 12px; padding: 0 34px 36px; flex-wrap: wrap; }
+  button {
+    font-family: var(--sans); border: none; border-radius: 999px; padding: 13px 24px;
+    font-size: 13px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: opacity .15s;
+  }
+  button:hover { opacity: .85; }
+  .btn-primary { background: #c98a96; color: #fff; }
+  .btn-ghost { background: #f1e7e2; color: var(--ink); }
+
+  footer { text-align: center; font-family: var(--sans); font-size: 12px; color: var(--muted); padding: 0 20px 50px; letter-spacing: .04em; }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 999px;
+    font-family: var(--sans); font-size: 13px; opacity: 0; pointer-events: none;
+    transition: opacity .2s; z-index: 50;
+  }
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 600px){ .hero h1 { font-size: 38px; } .swatches { grid-template-columns: repeat(3,1fr); } }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="kicker">Wedding Guest Color Guide</div>
+    <h1>PB&amp;F Wedding Colors</h1>
+    <p>Wondering what to wear? Here's a palette pulled straight from the bride's gown — pick any of these and you'll fit right in.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="top">
+        <div class="photo" id="photo">
+          <img id="dressImgEl" alt="the bride's gown" />
+          <div class="ph">
+            <div style="font-size:30px">👗</div>
+            <div><strong>Dress photo goes here</strong></div>
+            <div>Save it as <code>assets/dress.png</code></div>
+          </div>
+        </div>
+        <div class="palette-side">
+          <div class="palette-head">
+            <h2>The Dress Palette</h2>
+            <div class="sub">Colors found in the gown</div>
+          </div>
+          <div class="vbars" id="swatches"></div>
+        </div>
+      </div>
+
+      <div class="guide" id="guide"></div>
+
+      <div class="actions">
+        <button class="btn-primary" id="copyAll">Copy color list</button>
+        <button class="btn-ghost" id="download">Save guide as image</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Made with love for PB&amp;F's big day · tap any swatch to copy its color</footer>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+const DRESS = [
+  { hex: '#F7EDE8', name: 'Ivory Cream' },
+  { hex: '#F4C6CF', name: 'Petal Blush' },
+  { hex: '#E68FA6', name: 'Rose Pink' },
+  { hex: '#C9A8D4', name: 'Lilac' },
+  { hex: '#9DA8D6', name: 'Periwinkle' },
+  { hex: '#A9BE97', name: 'Sage Green' },
+];
+const BEST = [
+  { hex: '#D98FA0', name: 'Dusty Rose' },
+  { hex: '#C9A8D4', name: 'Lavender' },
+  { hex: '#9DA8D6', name: 'Periwinkle' },
+  { hex: '#A9BE97', name: 'Sage Green' },
+  { hex: '#B98FB0', name: 'Mauve' },
+];
+const ACCENT = [
+  { hex: '#F3E1A0', name: 'Soft Butter Yellow' },
+  { hex: '#B9DEC9', name: 'Mint' },
+];
+const AVOID = 'White, ivory & palest blush (too close to the bride’s gown) · all-black · bright neons or hot brights';
+const CROP_TOP = 0.27;    // remove the head/face from the top
+const CROP_BOTTOM = 0.07; // remove the carousel buttons at the bottom
+
+const $ = s => document.querySelector(s);
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1600); }
+
+// pick black or white text for readability on a given hex
+function textOn(hex){
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  const lum=(0.299*r+0.587*g+0.114*b)/255;
+  return lum>0.6 ? '#3a3330' : '#ffffff';
+}
+DRESS.forEach((c,i)=>{
+  const ink=textOn(c.hex);
+  const el=document.createElement('div'); el.className='vbar';
+  el.style.background=c.hex; el.style.color=ink;
+  el.style.animationDelay=(0.09*i)+'s';
+  el.innerHTML=`<div class="vcopy">Tap to copy</div>
+                <div class="vhex">${c.hex.replace('#','').toUpperCase()}</div>
+                <div class="vname">${c.name.replace(' ','<br>')}</div>`;
+  el.onclick=()=>{ navigator.clipboard.writeText(c.hex); toast(c.hex+' copied'); };
+  $('#swatches').appendChild(el);
+});
+
+function dots(list){ return `<div class="recos">${list.map((c,i)=>
+  `<div class="reco" data-hex="${c.hex}" style="animation-delay:${(0.4+0.08*i).toFixed(2)}s"><div class="sw" style="background:${c.hex}"></div>`
+  + `<div class="nm">${c.name}</div><div class="hx">${c.hex}</div></div>`).join('')}</div>`; }
+$('#guide').innerHTML = `
+  <div class="row">
+    <span class="badge best">Best to wear</span>
+    <div class="txt"><div class="lead">Tones from the dress and their close neighbors on the color wheel.</div>
+      <div class="why">These <em>analogous</em> colors blend with the gown, so the whole party looks coordinated in photos.</div>${dots(BEST)}</div>
+  </div>
+  <div class="row">
+    <span class="badge accent">Fun accent</span>
+    <div class="txt"><div class="lead">A little pop, if you'd rather not wear pink.</div>
+      <div class="why">These sit <em>opposite</em> the dress's pinks on the color wheel (complementary), so they contrast nicely without clashing.</div>${dots(ACCENT)}</div>
+  </div>
+  <div class="row">
+    <span class="badge avoid">Please avoid</span>
+    <div class="txt"><div class="avoid-list">${AVOID}</div>
+      <div class="why">White, ivory & blush are the bride's colors; black is too heavy for a soft garden look; neons fight the pastels.</div></div>
+  </div>`;
+
+document.querySelectorAll('#guide .reco').forEach(el=>{
+  el.onclick=()=>{ const h=el.dataset.hex; navigator.clipboard.writeText(h); toast(h+' copied'); };
+});
+
+// load the photo, then crop off the face (top) and the carousel buttons (bottom)
+const dressImg = new Image();   // holds the CROPPED image, used for display + download
+const rawImg = new Image();
+rawImg.onload = ()=>{
+  const sy = Math.round(rawImg.naturalHeight * CROP_TOP);
+  const sh = Math.round(rawImg.naturalHeight * (1 - CROP_TOP - CROP_BOTTOM));
+  const cc = document.createElement('canvas');
+  cc.width = rawImg.naturalWidth; cc.height = sh;
+  cc.getContext('2d').drawImage(rawImg, 0, sy, rawImg.naturalWidth, sh, 0, 0, rawImg.naturalWidth, sh);
+  const url = cc.toDataURL('image/png');
+  dressImg.src = url;
+  $('#dressImgEl').src = url;
+  $('#photo').classList.add('has-img');
+};
+rawImg.src = 'assets/dress.png';
+
+$('#copyAll').onclick=()=>{
+  const txt = "FATIMA'S WEDDING — what to wear\n\nBest to wear:\n"
+    + BEST.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
+    + '\n\nFun accent:\n' + ACCENT.map(c=>`  • ${c.name} ${c.hex}`).join('\n')
+    + '\n\nPlease avoid: ' + AVOID.replace(/·/g,'•');
+  navigator.clipboard.writeText(txt); toast('Color guide copied');
+};
+
+$('#download').onclick=()=>{
+  const w=1100, h=720, c=document.createElement('canvas'); c.width=w; c.height=h;
+  const x=c.getContext('2d');
+  x.fillStyle='#fbf6f2'; x.fillRect(0,0,w,h);
+  const imW=380, imX=40, imY=40, imH=h-80;
+  if(dressImg.complete && dressImg.naturalWidth){
+    const sw=dressImg.naturalWidth, sh=dressImg.naturalHeight;
+    const r=Math.max(imW/sw, imH/sh), dw=sw*r, dh=sh*r;
+    x.save(); roundRect(x,imX,imY,imW,imH,18); x.clip();
+    x.drawImage(dressImg, imX+(imW-dw)/2, imY+(imH-dh)/2, dw, dh); x.restore();
+  } else { x.fillStyle='#f0e6df'; roundRect(x,imX,imY,imW,imH,18); x.fill(); }
+
+  const lx=imX+imW+44;
+  x.textAlign='left';
+  x.fillStyle='#9a8c84'; x.font='13px sans-serif'; x.fillText('WEDDING GUEST COLOR GUIDE', lx, 66);
+  x.fillStyle='#4a3f3a'; x.font='40px Georgia'; x.fillText("PB&F Wedding Colors", lx, 110);
+
+  let y=170;
+  section(x,'BEST TO WEAR','#5a7a4a',BEST,lx,y); y+=170;
+  section(x,'FUN ACCENT','#a08534',ACCENT,lx,y); y+=120;
+  x.fillStyle='#b06b6b'; x.font='bold 14px sans-serif'; x.fillText('PLEASE AVOID', lx, y);
+  x.fillStyle='#6b5b54'; x.font='14px sans-serif';
+  wrapText(x,'White, ivory & palest blush · all-black · bright neons', lx, y+26, w-lx-40, 22);
+
+  const a=document.createElement('a'); a.download='fatima-wedding-color-guide.png'; a.href=c.toDataURL(); a.click();
+  toast('Guide image saved');
+};
+function section(x,title,col,list,lx,y){
+  x.fillStyle=col; x.font='bold 14px sans-serif'; x.textAlign='left'; x.fillText(title, lx, y);
+  list.forEach((c,i)=>{
+    const cx=lx+i*120, cy=y+22;
+    x.fillStyle=c.hex; roundRect(x,cx,cy,104,64,12); x.fill();
+    x.strokeStyle='rgba(0,0,0,.06)'; x.stroke();
+    x.fillStyle='#4a3f3a'; x.font='12px sans-serif'; x.textAlign='center';
+    x.fillText(c.name, cx+52, cy+86); x.fillStyle='#9a8c84'; x.font='11px sans-serif';
+    x.fillText(c.hex, cx+52, cy+102);
+  });
+  x.textAlign='left';
+}
+function wrapText(x,t,px,py,maxW,lh){ const words=t.split(' '); let line='',yy=py;
+  for(const w of words){ const test=line+w+' ';
+    if(x.measureText(test).width>maxW && line){ x.fillText(line,px,yy); line=w+' '; yy+=lh; } else line=test; }
+  x.fillText(line,px,yy); }
+function roundRect(x,px,py,w,h,r){ x.beginPath(); x.moveTo(px+r,py);
+  x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
+  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath(); }
+</script>
+</body>
+</html>
