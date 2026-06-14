@@ -162,6 +162,41 @@
     padding: 6px 0 6px 22px; position: relative;
   }
   .attire-card li::before { content: '✦'; position: absolute; left: 0; color: #c9a8d4; font-size: 12px; top: 7px; }
+  .inspo-btn {
+    margin-top: 16px; background: var(--ink); color: #fff; border: none; border-radius: 999px;
+    padding: 10px 18px; font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: .03em; cursor: pointer; transition: opacity .15s, transform .15s;
+  }
+  .inspo-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+  /* inspo modal */
+  .modal[hidden] { display: none; }
+  .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .modal-backdrop { position: absolute; inset: 0; background: rgba(45,33,30,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+  .modal-card {
+    position: relative; background: #f7f5f2; border-radius: 22px; width: 100%; max-width: 920px;
+    max-height: 88vh; overflow: auto; padding: 28px 30px 32px;
+    box-shadow: 0 30px 80px rgba(40,30,28,.4);
+    background-image: radial-gradient(#dfd6cd 1.1px, transparent 1.2px); background-size: 22px 22px;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%;
+    background: #fff; color: var(--ink); border: 1px solid var(--line); font-size: 15px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .modal-close:hover { background: #f1e7e2; }
+  .modal-head { text-align: center; margin-bottom: 22px; }
+  .modal-head h3 { font-family: var(--serif); font-size: 28px; font-weight: 500; }
+  .modal-head p { font-family: var(--sans); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .inspo-grid { columns: 3; column-gap: 14px; }
+  .inspo-item { break-inside: avoid; margin-bottom: 14px; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(120,90,80,.14); }
+  .inspo-item img { width: 100%; display: block; }
+  .inspo-item.ph {
+    display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.9);
+    font-family: var(--sans); font-size: 12px; letter-spacing: .04em; text-align: center; padding: 10px;
+  }
+  @media (max-width: 720px){ .inspo-grid { columns: 2; } }
+  @media (max-width: 460px){ .inspo-grid { columns: 1; } }
 
   .actions { display: flex; gap: 12px; padding: 0 34px 36px; flex-wrap: wrap; }
   button {
@@ -257,6 +292,18 @@
   <footer>Made with love for the big day · tap any swatch to copy its color</footer>
 
   <div class="toast" id="toast"></div>
+
+  <div class="modal" id="inspoModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close aria-label="Close">✕</button>
+      <div class="modal-head">
+        <h3 id="inspoTitle">Inspiration</h3>
+        <p>Outfit inspiration</p>
+      </div>
+      <div class="inspo-grid" id="inspoGrid"></div>
+    </div>
+  </div>
 
 <script>
 const DRESS = [
@@ -378,6 +425,7 @@ $('#attire').innerHTML = `
         <li>Keep accessories light, gold, blush or a muted metallic.</li>
         <li>Prefer a pop? A butter-yellow or mint piece stands out without clashing.</li>
       </ul>
+      <button class="inspo-btn" data-cat="her">View inspo</button>
     </div>
     <div class="attire-card">
       <div class="who">For him</div>
@@ -387,6 +435,7 @@ $('#attire').innerHTML = `
         <li>A pastel-toned shirt under a light jacket is an easy, polished look.</li>
         <li>Keep it light and soft, skip black, charcoal and dark navy; solid patterns only, no florals.</li>
       </ul>
+      <button class="inspo-btn" data-cat="him">View inspo</button>
     </div>
     <div class="attire-card">
       <div class="who">Gender neutral</div>
@@ -396,8 +445,45 @@ $('#attire').innerHTML = `
         <li>Layer a pastel knit or light blazer over a soft-toned base.</li>
         <li>Accessorize with a sage or dusty-rose scarf, tote, or pocket square; keep it light, solid colors only, no florals.</li>
       </ul>
+      <button class="inspo-btn" data-cat="neutral">View inspo</button>
     </div>
   </div>`;
+
+// ===== Inspo modal =====
+// Add image URLs to each category later; until then, placeholder tiles show.
+const INSPO = {
+  her:     { title: 'For her',        images: [] },
+  him:     { title: 'For him',        images: [] },
+  neutral: { title: 'Gender neutral', images: [] },
+};
+const PH_COLORS = ['#D98FA0','#C9A8D4','#9DA8D6','#A9BE97','#B98FB0','#F3E1A0','#B9DEC9','#E68FA6','#9DA8D6'];
+const PH_HEIGHTS = [170,220,180,240,160,210,150,230,190];
+
+function openInspo(cat){
+  const data = INSPO[cat]; if(!data) return;
+  $('#inspoTitle').textContent = data.title + ' inspiration';
+  const grid = $('#inspoGrid'); grid.innerHTML = '';
+  if(data.images.length){
+    data.images.forEach(src=>{
+      const d=document.createElement('div'); d.className='inspo-item';
+      d.innerHTML=`<img src="${src}" alt="${data.title} outfit inspiration" loading="lazy">`;
+      grid.appendChild(d);
+    });
+  } else {
+    PH_COLORS.forEach((c,i)=>{
+      const d=document.createElement('div'); d.className='inspo-item ph';
+      d.style.background=c; d.style.height=PH_HEIGHTS[i%PH_HEIGHTS.length]+'px';
+      d.textContent='Image coming soon';
+      grid.appendChild(d);
+    });
+  }
+  $('#inspoModal').hidden=false; document.body.style.overflow='hidden';
+}
+function closeInspo(){ $('#inspoModal').hidden=true; document.body.style.overflow=''; }
+
+document.querySelectorAll('.inspo-btn').forEach(b=>{ b.onclick=()=>openInspo(b.dataset.cat); });
+document.querySelectorAll('#inspoModal [data-close]').forEach(el=>{ el.onclick=closeInspo; });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#inspoModal').hidden) closeInspo(); });
 
 </script>
 </body>
